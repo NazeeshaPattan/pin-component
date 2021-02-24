@@ -8,6 +8,7 @@ class App extends React.PureComponent {
   state = {
     value: "",
     count: 0,
+    message: "",
   };
 
   onChange = (value) => {
@@ -23,8 +24,8 @@ class App extends React.PureComponent {
     console.log(this.state.value);
     if (this.state.count < 3) {
       if (this.state.value.length < 4) {
-        toast.warning("invalid input", {
-          position: toast.POSITION.TOP_RIGHT,
+        this.setState({
+          message: "invalid input",
         });
       } else {
         let payload = {
@@ -40,24 +41,24 @@ class App extends React.PureComponent {
           toast.error(error);
         });
         if (data.status !== 200) {
-          toast.error("Invalid Pin", {
-            position: toast.POSITION.TOP_RIGHT,
+          this.setState({
+            message: "Invalid Pin",
           });
-          return;
         } else {
-          toast.success("OTP Confirmed", {
-            position: toast.POSITION.TOP_RIGHT,
+          this.setState({
+            message: "OTP Confirmed",
           });
         }
       }
     } else {
-      toast.warning("your 3 attempts have been exceeded", {
-        position: toast.POSITION.TOP_RIGHT,
+      this.setState({
+        message: "your 3 attempts have been exceeded",
       });
     }
   };
 
   render() {
+    let { message } = this.state;
     return (
       <>
         <ToastContainer />
@@ -71,14 +72,11 @@ class App extends React.PureComponent {
             onChange={this.onChange}
           />{" "}
           <div className="text-center">
-            <button
-              className="btn btn-primary btn-grad"
-              onClick={this.onSubmit}
-            >
+            <button className="btn btn-primary m-3" onClick={this.onSubmit}>
               Submit{" "}
             </button>{" "}
           </div>{" "}
-          {/* */}{" "}
+          <div className="text-center">{message}</div>
         </div>{" "}
       </>
     );
