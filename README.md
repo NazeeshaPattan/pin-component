@@ -1,1 +1,1 @@
-DeploymentURL : "https://pin-input-fe.herokuapp.com/"
+DeploymentURL : "https://pin-component.herokuapp.com/"
